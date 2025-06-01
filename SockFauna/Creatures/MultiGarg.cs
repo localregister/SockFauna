@@ -49,7 +49,8 @@ public class MultiGarg : CreatureAsset
         var gargEmitter = prefab.AddComponent<FMOD_CustomEmitter>();
         gargEmitter.followParent = true;
         voice.emitter = gargEmitter;
-        
+
+        prefab.AddComponent<BossCollisions>();
 
         var trailManagerBuilder = new TrailManagerBuilder(components, prefab.transform.SearchChild("Spine2"));
         trailManagerBuilder.SetTrailArrayToChildrenWithKeywords("Spine");
@@ -95,5 +96,9 @@ public class MultiGarg : CreatureAsset
         mouth.AddComponent<OnTouch>();
         */
         yield break;
+    }
+    protected override void PostRegister()
+    {
+        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, "Lifeforms/Fauna/Leviathans", "Pentamosa", "A gargantuan, surprisingly shallow dwelling leviathan, being one of the largest ever recorded on 4546B.\nDespite how it looks, the Pentamosa is actually entirely passive, suggesting it doesn't actively hunt much, if at all.\nOnly one specimen has been found so far, likely meaning this species is nearing extinction.\n\nAssessment: Miraculously, harmless", 12f, null, null);
     }
 }

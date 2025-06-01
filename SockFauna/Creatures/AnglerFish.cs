@@ -74,6 +74,9 @@ public class Anglerfish : CreatureAsset
 
         yield break;
     }
-    
+    protected override void PostRegister()
+    {
+        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, "Lifeforms/Fauna/Leviathans", "Mirage Fish", "The Mirage Fish is a huge leviathan, resembling the long extinct footballfish of Earth.\nThis leviathan lures small prey in with a large bulb, before either swiftly chomping or chasing evasive prey at an alarmingly high speed.\nWith that in mind, congrats on managing to live to see this entry!\n\nAssessment: Avoid at all costs - be on guard in the vicinity of one", 2f, null, null);
+    }
 }
 

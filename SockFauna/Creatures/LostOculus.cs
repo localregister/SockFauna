@@ -85,4 +85,4 @@ namespace SockFauna.Creatures;
         });
         prefab.Register();
         }
-    }
+}

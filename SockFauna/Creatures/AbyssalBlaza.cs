@@ -86,4 +86,8 @@ public class AbyssalBlaza : CreatureAsset
 
         yield break;
     }
+    protected override void PostRegister()
+    {
+        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, "Lifeforms/Fauna/Leviathans", "Abyssal Blaza", "An impressively long leviathan, and the elder form of the Blaza Leviathan typically found in cave systems.\nGiven the fact that the Abyssal Blaza is found in more open and shallow waters, it's likely that the larger body is less sustainable in the tight caves that the juveniles tend to be found in.\nIt's unknown what the bioluminescent body does for the Blaza, but it's possible that the color patterns lure in prey.\nWhen it sees prey, it'll tend to lunge directly at it and hope for the best.\n\nAssessment: Extreme threat - don't get too close, and try not to get mesmerized by it", 6f, null, null);
+    }
 }

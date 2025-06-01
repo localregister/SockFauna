@@ -112,4 +112,8 @@ public class AncientBloop : CreatureAsset
         bloopVoice.minInterval = 25f;
         bloopVoice.maxInterval = 40f;
     }
+    protected override void PostRegister()
+    {
+        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, "Lifeforms/Fauna/Leviathans", "Ancient Bloop", "A vast leviathan, with incredible mass.\nThe Ancient Bloop seems to be the elder form of the more blowfish adjacent Bloop.\nIt acts similarly, but is much more mobile due to the sleeker body structure.\n\nAssessment: Threat - avoid the path of its vortex", 6f, null, null);
+    }
 }

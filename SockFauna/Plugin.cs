@@ -35,6 +35,7 @@ namespace SockFauna
             // register harmony patches, if there are any
             Harmony.CreateAndPatchAll(Assembly, $"{PluginInfo.PLUGIN_GUID}");
             Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
+            LanguageHandler.RegisterLocalizationFolder();
             ModAudio.RegisterAllAudio();
         }
 
@@ -115,8 +116,8 @@ namespace SockFauna
             mouth.Register();
             CoordinatedSpawnsHandler.RegisterCoordinatedSpawnsForOneTechType(gargInfo.TechType, new[]
             {
-                new SpawnLocation(new Vector3(418, -140, -1536)),
-                new SpawnLocation(new Vector3(-1555, -100, -328))
+                new SpawnLocation(new Vector3(418, -120, -1536)),
+                //new SpawnLocation(new Vector3(-1555, -100, -328))
             });
             var garg = new MultiGarg(gargInfo);
             garg.Register();
