@@ -21,15 +21,9 @@ public class Anglerfish : CreatureAsset
     {
         var template = new CreatureTemplate(() => Plugin.AssetBundle.LoadAsset<GameObject>("Anglerfish_Prefab"),
             BehaviourType.Leviathan, EcoTargetType.Leviathan, 5000f);
-        template.CellLevel = LargeWorldEntity.CellLevel.Global;
+        template.CellLevel = LargeWorldEntity.CellLevel.VeryFar;
         template.SwimRandomData = new SwimRandomData(0.1f, 5f, new Vector3(200, 3, 200), 25f, 2.5f, true);
         template.StayAtLeashData = new StayAtLeashData(0.2f, 5, 200);
-        /*
-        template.AggressiveWhenSeeTargetList = new List<AggressiveWhenSeeTargetData>()
-        {
-            new(EcoTargetType.Shark, 1.2f, 35f, 2)
-        };
-        */
         template.AttackLastTargetData = new AttackLastTargetData(0.3f, 50f, 0.5f, 10f, 12f);
         template.AggressiveToPilotingVehicleData = new AggressiveToPilotingVehicleData(40f, 0.5f);
         template.Mass = 5000;
@@ -73,7 +67,7 @@ public class Anglerfish : CreatureAsset
         meleeAttack.animator = components.Animator;
         var meleeEmitter = prefab.AddComponent<FMOD_CustomEmitter>();
         meleeEmitter.followParent = true;
-        meleeEmitter.SetAsset(AudioUtils.GetFmodAsset("BlazaBite"));
+        meleeEmitter.SetAsset(AudioUtils.GetFmodAsset("MultiGargBite"));
         meleeAttack.attackEmitter = meleeEmitter;
 
         mouth.AddComponent<OnTouch>();

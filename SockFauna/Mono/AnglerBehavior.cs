@@ -37,41 +37,11 @@ public class AnglerBehaviour : MonoBehaviour
             SetLureState(false);
             return;
         }
-        /*
-        if (luring && Time.time > timeLureAgain)
-        {
-            transform.LookAt(Player.main.transform.position);
-            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-            var distance = Vector3.Distance(transform.position, Player.main.transform.position);
-            if (distance < showDistance && CanJumpOut())
-            {
-                JumpOut();
-            }
-        }
-        else
-        {
-            lastTarget.target = Player.main.gameObject;
-        }
-        */
         if (!luring && Time.time > timeLureAgain)
         {
             SetLureState(false);
         }
     }
-    /*
-    private bool CanJumpOut()
-    {
-        if (Player.main.GetCurrentSub() != null && !Player.main.isPiloting) return false;
-        return true;
-    }
-
-    private void JumpOut()
-    {
-        timeLureAgain = Time.time + 14;
-        SetLureState(false);
-        Utils.PlayFMODAsset(Helpers.GetFmodAsset("AnglerJumpscare"), Player.main.transform.position);
-    }
-    */
     private void KillPlayer()
     {
         Player.main.liveMixin.Kill();
@@ -84,14 +54,9 @@ public class AnglerBehaviour : MonoBehaviour
 
     public void SetLureState(bool state)
     {
-        /*
-        if (luring && !state)
-        {
-            PlayerScreenFXHelper.PlayScreenFX(PlayerScreenFXHelper.ScreenFX.Mesmer, 5f, 2f);
-        }
-        */
         luring = state;
         animator.SetBool("lure", state);
+        animator.Play("None", 4);
         rb.isKinematic = state;
         live.invincible = state;
     }

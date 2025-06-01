@@ -13,9 +13,6 @@ public class MouthBehaviour : MonoBehaviour
     private Rigidbody rb;
     private LastTarget lastTarget;
     private LiveMixin live;
-    private float showDistance = 500;
-    private float killDistance = 300;
-    private GameObject currentlySpawned;
 
     void Start()
     {

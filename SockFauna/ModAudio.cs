@@ -18,18 +18,26 @@ public static class ModAudio
     {
         // Blaza:
         RegisterSoundWithVariants("AbyssalBlazaIdle", new string[] { "AbyssalBlazaIdle1", "AbyssalBlazaIdle2", "AbyssalBlazaIdle3", "AbyssalBlazaIdle4", "AbyssalBlazaIdle5" }, CreaturesBus, 5f, 150f);
-        RegisterSoundWithVariants("AbyssalBlazaBite", new string[] { "AbyssalBlazaBite1", "AbyssalBlazaBite2" }, CreaturesBus, 5f, 60f);
+        RegisterSoundWithVariants("AbyssalBlazaBite", new string[] { "AbyssalBlazaBite1", "AbyssalBlazaBite2" }, CreaturesBus, 5f, 100f);
         RegisterSound("AbyssalBlazaExosuitAttack", "AbyssalBlazaExosuit", CreaturesBus, 5f, 30f);
         RegisterSound("AbyssalBlazaSeamothAttack", "AbyssalBlazaSeamoth", CreaturesBus, 5f, 30f);
 
         // Bloop:
         RegisterSoundWithVariants("AncientBloopIdle", new string[] { "AncientBloopRoar1", "AncientBloopRoar2", "AncientBloopRoar3", "AncientBloopRoar4", "AncientBloopRoar5" }, CreaturesBus, 20f, 150f);
         RegisterSound("AncientBloopVortexAttack", "AncientBloopVortexAttack", CreaturesBus, 5f, 40f);
-        RegisterSoundWithVariants("AncientBloopSwim", new string[] { "AncientBloopSwim1", "AncientBloopSwim2", "AncientBloopSwim3", "AncientBloopSwim4", "AncientBloopSwim5" }, CreaturesBus, 5f, 60f);
+        RegisterSoundWithVariants("AncientBloopSwim", new string[] { "AncientBloopSwim1", "AncientBloopSwim2", "AncientBloopSwim3", "AncientBloopSwim4", "AncientBloopSwim5" }, CreaturesBus, 5f, 45f);
 
         RegisterSound("AnglerRoar", "AnglerJumpscare", CreaturesBus, 5f, 150f);
 
-        // Deep bloop:
+        RegisterSoundWithVariants("MultiGargRoar", new string[] { "BossGrowl1", "BossGrowl2", "BossRoar1", "BossRoar2" }, CreaturesBus, 20f, 300f);
+        RegisterSoundWithVariants("MultiGargBite", new string[] { "BossBite1", "BossBite2", "BossBite3" }, CreaturesBus, 5f, 100f);
+
+        var gargsound = AudioUtils.CreateSound(Bundle.LoadAsset<AudioClip>("BossAmbience"),
+            AudioUtils.StandardSoundModes_3D | MODE.LOOP_NORMAL);
+        gargsound.set3DMinMaxDistance(5, 250);
+
+        CustomSoundHandler.RegisterCustomSound("MultiGargAmbience", gargsound, CreaturesBus);
+
         var sound = AudioUtils.CreateSound(Bundle.LoadAsset<AudioClip>("MassiveLeviathanIdle"),
             AudioUtils.StandardSoundModes_3D | MODE.LOOP_NORMAL);
         sound.set3DMinMaxDistance(5, 300);

@@ -11,27 +11,24 @@ using UnityEngine;
 
 namespace SockFauna.Creatures;
 
-public class AbyssalBlaza : CreatureAsset
+public class MultiGarg : CreatureAsset
 {
-    public AbyssalBlaza(PrefabInfo prefabInfo) : base(prefabInfo)
+    public MultiGarg(PrefabInfo prefabInfo) : base(prefabInfo)
     {
     }
 
     protected override CreatureTemplate CreateTemplate()
     {
-        var template = new CreatureTemplate(() => Plugin.AssetBundle.LoadAsset<GameObject>("BlazaV2_Prefab"),
+        var template = new CreatureTemplate(() => Plugin.AssetBundle.LoadAsset<GameObject>("MultigargPrefab"),
             BehaviourType.Leviathan, EcoTargetType.Leviathan, 5000f);
-        template.CellLevel = LargeWorldEntity.CellLevel.VeryFar;
-        template.SwimRandomData = new SwimRandomData(0.1f, 20f, new Vector3(175, 20, 175), 2.5f, 0.8f, true);
-        template.StayAtLeashData = new StayAtLeashData(0.2f, 20, 175);
-        template.AvoidTerrainData = new AvoidTerrainData(0.2f, 20, 30, 30, 0.5f, 10f);
-        template.AggressiveWhenSeeTargetList = new List<AggressiveWhenSeeTargetData>()
-        {
-            new(EcoTargetType.Shark, 1.2f, 35f, 2)
-        };
-        template.AttackLastTargetData = new AttackLastTargetData(0.3f, 45f, 0.5f, 10f, 12f);
-        template.AggressiveToPilotingVehicleData = new AggressiveToPilotingVehicleData(25f, 0.5f);
-        template.Mass = 3000;
+        template.CellLevel = LargeWorldEntity.CellLevel.Global;
+        template.SwimRandomData = new SwimRandomData(0.1f, 20f, new Vector3(200, 0, 200), 2.5f, 2.0f, false);
+        template.StayAtLeashData = new StayAtLeashData(0.2f, 20, 300);
+        template.LocomotionData = new LocomotionData(10f, 0.01f, 1.5f, 0.5f, false, false, false);
+        //template.AvoidTerrainData = new AvoidTerrainData(0.2f, 20, 30, 30, 0.5f, 10f);
+        //template.AttackLastTargetData = new AttackLastTargetData(0.3f, 50f, 0.5f, 10f, 12f);
+        //template.AggressiveToPilotingVehicleData = new AggressiveToPilotingVehicleData(25f, 0.5f);
+        template.Mass = 20000;
         template.BehaviourLODData = new BehaviourLODData(50, 300, 5000);
         template.AnimateByVelocityData = new AnimateByVelocityData(12);
         template.CanBeInfected = false;
@@ -42,33 +39,46 @@ public class AbyssalBlaza : CreatureAsset
 
     protected override IEnumerator ModifyPrefab(GameObject prefab, CreatureComponents components)
     {
+        
         var voice = prefab.AddComponent<CreatureVoice>();
-        voice.closeIdleSound = AudioUtils.GetFmodAsset("AbyssalBlazaIdle");
-        voice.minInterval = 15;
-        voice.maxInterval = 25;
+        voice.closeIdleSound = AudioUtils.GetFmodAsset("MultiGargRoar");
+        voice.minInterval = 25;
+        voice.maxInterval = 60;
         voice.animator = components.Animator;
         voice.animatorTriggerParam = "roar";
-        var blazaEmitter = prefab.AddComponent<FMOD_CustomEmitter>();
-        blazaEmitter.followParent = true;
-        voice.emitter = blazaEmitter;
+        var gargEmitter = prefab.AddComponent<FMOD_CustomEmitter>();
+        gargEmitter.followParent = true;
+        voice.emitter = gargEmitter;
+        
 
-        var trailManagerBuilder = new TrailManagerBuilder(components, prefab.transform.SearchChild("Spine_1"));
+        var trailManagerBuilder = new TrailManagerBuilder(components, prefab.transform.SearchChild("Spine2"));
         trailManagerBuilder.SetTrailArrayToChildrenWithKeywords("Spine");
         trailManagerBuilder.AllowDisableOnScreen = false;
         trailManagerBuilder.Apply();
+        //var necktrailManagerBuilder = new TrailManagerBuilder(components, prefab.transform.SearchChild("Spine1"));
+        //necktrailManagerBuilder.SetTrailArrayToChildrenWithKeywords("Neck");
+        //necktrailManagerBuilder.AllowDisableOnScreen = false;
+        //necktrailManagerBuilder.Apply();
 
+        /*
         var behaviour = prefab.AddComponent<BlazaBehaviour>();
         behaviour.creature = components.Creature;
         var grabVehicleEmitter = prefab.AddComponent<FMOD_CustomEmitter>();
         grabVehicleEmitter.followParent = true;
         behaviour.grabVehicleEmitter = grabVehicleEmitter;
-
+        */
+        
+        var MouthVoiceEmitter = prefab.AddComponent<FMOD_CustomLoopingEmitter>();
+        MouthVoiceEmitter.SetAsset(AudioUtils.GetFmodAsset("MultiGargAmbience"));
+        MouthVoiceEmitter.playOnAwake = true;
+        MouthVoiceEmitter.followParent = true;
+        /*
         var mouth = prefab.SearchChild("MouthTrigger");
-        var meleeAttack = prefab.AddComponent<BlazaMeleeAttack>();
+        var meleeAttack = prefab.AddComponent<GargMeleeAttack>();
         meleeAttack.mouth = mouth;
         meleeAttack.canBeFed = false;
         meleeAttack.biteInterval = 2f;
-        meleeAttack.biteDamage = 75f;
+        meleeAttack.biteDamage = 100f;
         meleeAttack.eatHungerDecrement = 0.05f;
         meleeAttack.eatHappyIncrement = 0.1f;
         meleeAttack.biteAggressionDecrement = 0.02f;
@@ -79,11 +89,11 @@ public class AbyssalBlaza : CreatureAsset
         meleeAttack.animator = components.Animator;
         var meleeEmitter = prefab.AddComponent<FMOD_CustomEmitter>();
         meleeEmitter.followParent = true;
-        meleeEmitter.SetAsset(AudioUtils.GetFmodAsset("AbyssalBlazaBite"));
+        meleeEmitter.SetAsset(AudioUtils.GetFmodAsset("MultiGargBite"));
         meleeAttack.attackEmitter = meleeEmitter;
 
         mouth.AddComponent<OnTouch>();
-
+        */
         yield break;
     }
 }

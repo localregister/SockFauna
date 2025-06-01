@@ -32,6 +32,7 @@ public class AncientBloop : CreatureAsset
         template.AttackLastTargetData = new AttackLastTargetData(0.3f, 13f, 0.5f, 13f, 40f);
         template.Mass = 1500;
         template.StayAtLeashData = new StayAtLeashData(0.2f, 10f, 125f);
+        template.AvoidTerrainData = new AvoidTerrainData(0.2f, 10, 30, 30, 0.5f, 10f);
         template.BehaviourLODData = new BehaviourLODData(50, 300, 5000);
         template.LocomotionData = new LocomotionData(10f,
             (0.05f), 3f, 0.9f);

@@ -45,7 +45,6 @@ namespace SockFauna.Creatures;
                     material.SetTexture("_SpecTex", Plugin.AssetBundle.LoadAsset<Texture2D>("oculus_01_spec"));
                     material.SetTexture("_BumpMap", Plugin.AssetBundle.LoadAsset<Texture2D>("oculus_01_normal"));
                     material.SetTexture("_Illum", Plugin.AssetBundle.LoadAsset<Texture2D>("oculus_01_illum"));
-                    //obj.AcidImmune = true;
                 }
             };
         prefab.SetGameObject(template);
