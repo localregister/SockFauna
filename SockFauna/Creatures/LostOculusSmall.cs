@@ -7,14 +7,14 @@ using ECCLibrary;
 using Nautilus.Assets.Gadgets;
 
 namespace SockFauna.Creatures;
-    public class LostOculusClone
+    public class LostOculusSmall
 {
     Texture2D mainTex;
     Texture2D specTex;
     Texture2D emissiveTex;
     Texture2D normalTex;
 
-    public LostOculusClone()
+    public LostOculusSmall()
     {
         mainTex = Plugin.AssetBundle.LoadAsset<Texture2D>("oculus_01");
         emissiveTex = Plugin.AssetBundle.LoadAsset<Texture2D>("oculus_01_illum");
@@ -23,19 +23,18 @@ namespace SockFauna.Creatures;
     }
     public static void Register()
     {
-        PrefabInfo info = PrefabInfo.WithTechType("LostOculus");
+        PrefabInfo info = PrefabInfo.WithTechType("LostOculusJuvenile");
         var prefab = new CustomPrefab(info);
         var template = new CloneTemplate(info, TechType.Oculus)
         {
             ModifyPrefab = obj =>
             {
-                obj.transform.GetChild(0).localScale = Vector3.one * 6f;
-                Object.DestroyImmediate(obj.GetComponent<Pickupable>());
-                obj.EnsureComponent<EcoTarget>().type = EcoTargetType.MediumFish;
+                obj.transform.GetChild(0).localScale = Vector3.one * 2f;
+                obj.EnsureComponent<EcoTarget>().type = EcoTargetType.Oculus;
                 obj.EnsureComponent<LargeWorldEntity>().cellLevel = LargeWorldEntity.CellLevel.Far;
-                obj.GetComponent<SphereCollider>().radius = 2.8f;
-                obj.GetComponent<Rigidbody>().mass = 50f;
-                obj.GetComponent<LiveMixin>().health = 300f;
+                obj.GetComponent<SphereCollider>().radius = 1.2f;
+                //obj.GetComponent<Rigidbody>().mass = 50f;
+                obj.GetComponent<LiveMixin>().health = 75f;
                 obj.GetComponent<Creature>().Tired = new CreatureTrait(0, 1);
                 var rendererObj = obj.transform.Find("model/Oculus");
                 obj.transform.Find("model/Oculus_LOD1").gameObject.SetActive(false);
@@ -56,40 +55,19 @@ namespace SockFauna.Creatures;
         {
             CoordinatedSpawnsHandler.RegisterCoordinatedSpawnsForOneTechType(info.TechType, new[]
             {
-                    //Skeleton Cave
-                    new SpawnLocation(new Vector3(-989, -675, -626)),
-                    new SpawnLocation(new Vector3(-1109, -679, -647)),
-                    new SpawnLocation(new Vector3(-1076, -713, -570)),
-                    new SpawnLocation(new Vector3(-996, -636, -616)),
                     //Precursor Cache
-                    new SpawnLocation(new Vector3(-1120, -680, -687)),
-                    //Disease Research Facility
-                    new SpawnLocation(new Vector3(-235, -801, 338)),
-                    new SpawnLocation(new Vector3(-217, -790, 307)),
-                    new SpawnLocation(new Vector3(-355, -840, 261)),
-                    new SpawnLocation(new Vector3(-282, -701, 123)),
-                    new SpawnLocation(new Vector3(-363, -701, 148)),
-                    new SpawnLocation(new Vector3(-148, -820, 226)),
-                    //Garg Skull
-                    new SpawnLocation(new Vector3(-724, -760, -269)),
-                    new SpawnLocation(new Vector3(-717, -741, -231)),
-                    new SpawnLocation(new Vector3(-678, -757, -279)),
-                    //Sea Dragon Fossil
-                    new SpawnLocation(new Vector3(-635, -826, 328)),
-                    new SpawnLocation(new Vector3(-645, -830, 284)),
-                    new SpawnLocation(new Vector3(-620, -838, 262)),
-                    //Misc
-                    new SpawnLocation(new Vector3(-1042, -684, -152)),
-                    new SpawnLocation(new Vector3(-1111, -683, -57)),
-                    new SpawnLocation(new Vector3(-1007, -682, -64)),
-                    new SpawnLocation(new Vector3(-883, -633, 665)),
-                    new SpawnLocation(new Vector3(-922, -614, 1004)),
-                    new SpawnLocation(new Vector3(-948, -617, 988)),
-                    new SpawnLocation(new Vector3(-816, -744, -327)),
-                    new SpawnLocation(new Vector3(387, -833, 863))
+                    new SpawnLocation(new Vector3(-1120, -675, -687)),
+                    new SpawnLocation(new Vector3(-1120, -685, -687)),
+                    new SpawnLocation(new Vector3(-1120, -670, -687))
             });
             GadgetExtensions.SetSpawns(prefab, new LootDistributionData.BiomeData[]
             {
+                new()
+                {
+                    biome = BiomeType.BonesField_Cave_Ground,
+                    probability = 0.75f,
+                    count = 1
+                },
                 new()
                 {
                     biome = BiomeType.BonesField_LakePit_Floor,
@@ -98,20 +76,44 @@ namespace SockFauna.Creatures;
                 },
                 new()
                 {
+                    biome = BiomeType.BonesField_Lake_Floor,
+                    probability = 0.25f,
+                    count = 1
+                },
+                new()
+                {
+                    biome = BiomeType.BonesField_Corridor_Stream,
+                    probability = 0.25f,
+                    count = 1
+                },
+                new()
+                {
                     biome = BiomeType.LostRiverJunction_LakeFloor,
-                    probability = 0.15f,
+                    probability = 0.4f,
                     count = 1
                 },
                 new()
                 {
                     biome = BiomeType.Canyon_Lake_Floor,
-                    probability = 0.15f,
+                    probability = 0.3f,
+                    count = 1
+                },
+                new()
+                {
+                    biome = BiomeType.SkeletonCave_Lake_Floor,
+                    probability = 1.0f,
+                    count = 1
+                },
+                new()
+                {
+                    biome = BiomeType.LostRiverCorridor_ThermalVents,
+                    probability = 0.25f,
                     count = 1
                 },
                 new()
                 {
                     biome = BiomeType.GhostTree_Lake_Floor,
-                    probability = 0.35f,
+                    probability = 1.5f,
                     count = 1
                 }
             });

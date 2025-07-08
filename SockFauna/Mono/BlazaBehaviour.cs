@@ -22,7 +22,7 @@ public class BlazaBehaviour : MonoBehaviour
     private static readonly FMODAsset _exosuitSounds = AudioUtils.GetFmodAsset("AbyssalBlazaExosuitAttack");
     private static readonly FMODAsset _roarSound = AudioUtils.GetFmodAsset("AbyssalBlazaIdle");
 
-    private readonly float _damagePerSecond = 23f;
+    private readonly float _damagePerSecond = 8f;
 
     public Creature creature;
 
